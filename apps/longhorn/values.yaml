@@ -1,0 +1,33 @@
+persistence:
+  defaultClass: true
+  defaultFsType: "ext4"
+  defaultClassReplicaCount: 2     # You currently have 2 nodes usable for storage
+  defaultDataLocality: "disabled"
+
+defaultSettings:
+  allowCollectingLonghornUsageMetrics: "false"
+  storageOverProvisioningPercentage: "200"
+  storageMinimalAvailablePercentage: "5"
+
+nodeSelector:
+  kubernetes.io/os: linux
+
+tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Exists"
+    effect: "NoSchedule"
+
+image:
+  manager:
+    repository: longhornio/longhorn-manager
+    tag: "v1.4.0"
+  engine:
+    repository: longhornio/longhorn-engine
+    tag: "v1.4.0"
+
+backupTarget: ""
+backupTargetCredentialSecret: ""
+
+defaultNodeSelector:
+  enable: false
+  selector: []
