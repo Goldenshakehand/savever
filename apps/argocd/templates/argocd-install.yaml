@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  server:
+    insecure: true
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 10.0.1.100
+  repo:
+    mountSAToken: true
+  dex:
+    enabled: false

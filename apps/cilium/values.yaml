@@ -1,0 +1,54 @@
+# Safe values.yaml for Cilium 1.18
+# No XDP, No eBPF kube-proxy replacement, no kernel risks.
+
+# IMPORTANT:
+# Adjust CIDRs ONLY if your cluster uses something else.
+cluster:
+  podCIDR: "10.42.0.0/16"
+  serviceCIDR: "10.43.0.0/16"
+
+cilium:
+  version: "1.18.0"
+
+  # SAFE MODE — DO NOT CHANGE YET
+  kubeProxyReplacement: "disabled"
+  routingMode: "tunnel"        # VXLAN (safest)
+  tunnel: "vxlan"
+
+  ipv4:
+    enabled: true
+  ipv6:
+    enabled: false
+
+  # IPAM (same as k3s default flannel CIDRs)
+  ipam:
+    mode: cluster-pool
+    operator:
+      clusterPoolIPv4PodCIDRList:
+        - "10.42.0.0/16"
+      clusterPoolIPv4MaskSize: 24
+
+  # NAT masquerading safe mode
+  enableIPv4Masquerade: true
+
+  operator:
+    replicas: 1
+
+  hubble:
+    enabled: true
+    metrics:
+      enableOpenMetrics: true
+      enabled:
+        - dns
+        - drop
+        - tcp
+        - flow
+        - port-distribution
+        - icmp
+        - http
+
+    relay:
+      enabled: true
+
+    ui:
+      enabled: true
