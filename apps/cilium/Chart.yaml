@@ -1,6 +1,0 @@
-apiVersion: v2
-name: cilium
-description: Cilium CNI for K3s GitOps deployment
-type: application
-version: 0.1.0
-appVersion: "1.16.5"
