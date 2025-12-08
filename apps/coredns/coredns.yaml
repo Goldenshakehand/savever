@@ -1,0 +1,5 @@
+spec:
+  source:
+    kustomize:
+      patches:
+        - path: patch-serviceaccount.yaml
